@@ -144,7 +144,7 @@ function pickNotice() {
   if (issues.cors || issues.stream || issues.device || issues.foreign || issues.unavailable) {
     return { kind: 'warn', text: t('noticeCannotBoost'), label: t('useEnhanced'), action: startEnhanced };
   }
-  if (tab.audible && tab.volume !== UNITY && status.playing === 0 && status.graphs === 0) {
+  if (tab.audible && tab.volume !== UNITY && status.recent === 0 && status.graphs === 0) {
     return { kind: 'warn', text: t('noticeNoSource'), label: t('useEnhanced'), action: startEnhanced };
   }
   return null;
@@ -251,19 +251,13 @@ async function reloadTab() {
 
 // ---- live state ----
 
+const STATUS_COUNTS = ['media', 'playing', 'recent', 'boosted', 'scaled', 'viaPage', 'graphs'];
+
 function sumStatus(frames) {
-  const total = {
-    frames: frames.length,
-    media: 0,
-    playing: 0,
-    boosted: 0,
-    scaled: 0,
-    viaPage: 0,
-    graphs: 0,
-    issues: {},
-  };
+  const total = { frames: frames.length, issues: {} };
+  for (const key of STATUS_COUNTS) total[key] = 0;
   for (const frame of frames) {
-    for (const key of ['media', 'playing', 'boosted', 'scaled', 'viaPage', 'graphs']) total[key] += frame[key] || 0;
+    for (const key of STATUS_COUNTS) total[key] += frame[key] || 0;
     for (const [reason, count] of Object.entries(frame.issues ?? {})) {
       total.issues[reason] = (total.issues[reason] || 0) + count;
     }

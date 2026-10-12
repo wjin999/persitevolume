@@ -11,7 +11,7 @@ export const MIN_VOLUME = 0;
 export const MAX_VOLUME = 600;
 export const MAX_CHOICES = [200, 300, 400, 500, 600];
 export const STEP_CHOICES = [1, 5, 10, 20, 25, 50];
-export const PRESETS = [50, 100, 150, 200, 300, 400];
+export const PRESETS = [10, 25, 50, 100, 150, 200, 300];
 
 // Every local file shares one setting.
 export const FILE_SITE = 'file://';

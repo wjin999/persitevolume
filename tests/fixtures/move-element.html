@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>move sounds: new Audio()</title>
+<button id="move">move</button>
+<script>
+  // A new Audio() for every move, usually from a sound CDN on another origin.
+  const src = new URLSearchParams(location.search).get('src') || '/click.wav';
+  window.ready = Promise.resolve(true);
+  document.getElementById('move').addEventListener('click', () => {
+    new Audio(src).play();
+  });
+</script>

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile } from 'node:fs/promises';
 import { after, before, describe, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { assertLevel, launch, open, savedSite, startServer, storage, tabIdOf, waitFor } from './helpers.js';
+import { assertLevel, launch, open, savedSite, setVolume, startServer, storage, tabIdOf, waitFor } from './helpers.js';
 
 const SCREENSHOTS = fileURLToPath(new URL('../test-results/', import.meta.url));
 
@@ -98,6 +98,23 @@ describe('popup', () => {
     assert.equal(await popup.isHidden('#notice'), true);
     await popup.click('#enhanced');
     await popup.waitForFunction(() => !document.getElementById('enhanced').checked);
+    await popup.close();
+    await page.close();
+  });
+
+  test('does not blame short sound effects on an unreachable source', async () => {
+    const src = encodeURIComponent(server.url('sounds-cdn', 'click.wav'));
+    const page = await open(browser, server.url('popup-moves', 'move-element.html', `src=${src}`));
+    const tabId = await tabIdOf(browser, page);
+    await setVolume(browser, tabId, 25);
+    await page.click('#move');
+    // Chrome keeps the tab marked as playing for a moment after the sound ends.
+    await waitFor(() => browser.controller.evaluate(async (id) => (await chrome.tabs.get(id)).audible, tabId), {
+      message: 'tab marked as playing',
+    });
+    const popup = await openPopup(tabId);
+    await popup.waitForFunction(() => document.getElementById('status').textContent !== '');
+    assert.equal(await popup.isHidden('#notice'), true, await popup.textContent('#noticeText'));
     await popup.close();
     await page.close();
   });

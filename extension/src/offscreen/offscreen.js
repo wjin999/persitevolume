@@ -1,7 +1,7 @@
 // Enhanced mode: plays the captured audio of tabs back at their volume.
 // A captured tab is silent by itself, so everything it plays goes through here.
 
-const RAMP_SECONDS = 0.01;
+const RAMP_SECONDS = 0.02;
 const captures = new Map(); // tabId -> { stream, source, node }
 let context = null;
 
@@ -27,7 +27,7 @@ async function handle(message) {
     case 'list':
       return { ok: true, tabs: [...captures.keys()] };
     case 'level':
-      return { ok: true, level: await level(message.tabId) };
+      return { ok: true, ...(await level(message.tabId, message.duration)) };
     default:
       return { ok: false, error: `Unknown request: ${message.type}` };
   }
@@ -57,10 +57,12 @@ async function start({ tabId, streamId, gain }) {
 function setGain(tabId, gain) {
   const capture = captures.get(tabId);
   if (!capture || !(gain >= 0)) return;
+  // A linear ramp, as in engine.js: also right when the tab was silent.
   const param = capture.node.gain;
   const now = context.currentTime;
   param.cancelScheduledValues(now);
-  param.setTargetAtTime(gain, now, RAMP_SECONDS);
+  param.setValueAtTime(param.value, now);
+  param.linearRampToValueAtTime(gain, now + RAMP_SECONDS);
 }
 
 function stop(tabId) {
@@ -72,23 +74,27 @@ function stop(tabId) {
   for (const track of capture.stream.getTracks()) track.stop();
 }
 
-// Output level (RMS) of a captured tab after our gain, for diagnostics.
+// Output level of a captured tab after our gain, for diagnostics: RMS and peak.
 async function level(tabId, duration = 400) {
   const capture = captures.get(tabId);
-  if (!capture) return null;
+  if (!capture) return { level: null, peak: null };
   const analyser = context.createAnalyser();
-  analyser.fftSize = 2048;
+  analyser.fftSize = 2048; // ~43 ms, more than the polling interval: no gaps
   capture.node.connect(analyser);
   const samples = new Float32Array(analyser.fftSize);
   let sum = 0;
   let count = 0;
+  let peak = 0;
   const end = performance.now() + duration;
   while (performance.now() < end) {
     await new Promise((resolve) => setTimeout(resolve, 25));
     analyser.getFloatTimeDomainData(samples);
-    for (const sample of samples) sum += sample * sample;
+    for (const sample of samples) {
+      sum += sample * sample;
+      peak = Math.max(peak, Math.abs(sample));
+    }
     count += samples.length;
   }
   capture.node.disconnect(analyser);
-  return Math.sqrt(sum / count);
+  return { level: Math.sqrt(sum / count), peak };
 }

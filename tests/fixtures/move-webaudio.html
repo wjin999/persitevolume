@@ -1,0 +1,44 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>move sounds: Web Audio</title>
+<button id="move">move</button>
+<script>
+  // Plays move sounds the way lichess.org does (ui/site/src/sound.ts): one
+  // AudioContext created when the page is idle and resumed on the first input,
+  // a GainNode per sound connected to the destination, and a new
+  // AudioBufferSourceNode for every play.
+  const src = new URLSearchParams(location.search).get('src') || '/click.wav';
+  const contextReady = new Promise((resolve) =>
+    requestIdleCallback(() => resolve(new AudioContext({ latencyHint: 'interactive' }))),
+  );
+  const prime = async () => (await contextReady).resume();
+  for (const type of ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown']) {
+    addEventListener(type, prime, { capture: true });
+  }
+
+  class Sound {
+    constructor(context, buffer) {
+      this.context = context;
+      this.buffer = buffer;
+      this.node = context.createGain();
+      this.node.connect(context.destination);
+    }
+
+    play(volume = 1) {
+      this.node.gain.setValueAtTime(volume, this.context.currentTime);
+      const source = this.context.createBufferSource();
+      source.buffer = this.buffer;
+      source.connect(this.node);
+      source.onended = () => source.disconnect();
+      source.start(0);
+    }
+  }
+
+  const move = (async () => {
+    const context = await contextReady;
+    const data = await (await fetch(src)).arrayBuffer();
+    return new Sound(context, await context.decodeAudioData(data));
+  })();
+  window.ready = move.then(() => true);
+  document.getElementById('move').addEventListener('click', async () => (await move).play());
+</script>

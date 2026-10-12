@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { realpathSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,41 +17,62 @@ const FIXTURES_DIR = fileURLToPath(new URL('./fixtures/', import.meta.url));
 // Every test page plays (or synthesizes) a 440 Hz sine of this amplitude.
 export const TONE_AMPLITUDE = 0.2;
 export const TONE_RMS = TONE_AMPLITUDE / Math.SQRT2;
+// Peak of /click.wav, a short blip standing in for a chess move sound.
+export const CLICK_AMPLITUDE = 0.4;
 
-function toneWav({ frequency = 440, amplitude = TONE_AMPLITUDE, seconds = 2, rate = 48000 } = {}) {
-  // A whole number of periods, so the loop is seamless.
-  const frames = rate * seconds;
-  const wav = Buffer.alloc(44 + frames * 2);
-  wav.write('RIFF', 0);
-  wav.writeUInt32LE(36 + frames * 2, 4);
-  wav.write('WAVE', 8);
-  wav.write('fmt ', 12);
-  wav.writeUInt32LE(16, 16);
-  wav.writeUInt16LE(1, 20); // PCM
-  wav.writeUInt16LE(1, 22); // mono
-  wav.writeUInt32LE(rate, 24);
-  wav.writeUInt32LE(rate * 2, 28);
-  wav.writeUInt16LE(2, 32);
-  wav.writeUInt16LE(16, 34);
-  wav.write('data', 36);
-  wav.writeUInt32LE(frames * 2, 40);
-  for (let i = 0; i < frames; i++) {
-    wav.writeInt16LE(Math.round(Math.sin((2 * Math.PI * frequency * i) / rate) * amplitude * 32767), 44 + i * 2);
-  }
-  return wav;
+const RATE = 48000;
+const HOWLER = createRequire(import.meta.url).resolve('howler/dist/howler.core.min.js');
+
+function wav(samples) {
+  const data = Buffer.alloc(44 + samples.length * 2);
+  data.write('RIFF', 0);
+  data.writeUInt32LE(36 + samples.length * 2, 4);
+  data.write('WAVE', 8);
+  data.write('fmt ', 12);
+  data.writeUInt32LE(16, 16);
+  data.writeUInt16LE(1, 20); // PCM
+  data.writeUInt16LE(1, 22); // mono
+  data.writeUInt32LE(RATE, 24);
+  data.writeUInt32LE(RATE * 2, 28);
+  data.writeUInt16LE(2, 32);
+  data.writeUInt16LE(16, 34);
+  data.write('data', 36);
+  data.writeUInt32LE(samples.length * 2, 40);
+  samples.forEach((sample, i) => data.writeInt16LE(Math.round(sample * 32767), 44 + i * 2));
+  return data;
 }
 
-// Serves tests/fixtures and /tone.wav. Any *.localhost host name reaches it,
-// and each host is its own site.
+// A whole number of periods, so the loop is seamless.
+function tone({ frequency = 440, amplitude = TONE_AMPLITUDE, seconds = 2 } = {}) {
+  return Array.from({ length: RATE * seconds }, (_, i) => Math.sin((2 * Math.PI * frequency * i) / RATE) * amplitude);
+}
+
+function click({ frequency = 880, amplitude = CLICK_AMPLITUDE, seconds = 0.12, fade = 0.004 } = {}) {
+  const length = Math.round(RATE * seconds);
+  const fadeLength = Math.round(RATE * fade);
+  return Array.from({ length }, (_, i) => {
+    const envelope = Math.min(1, i / fadeLength, (length - 1 - i) / fadeLength);
+    return Math.sin((2 * Math.PI * frequency * i) / RATE) * amplitude * envelope;
+  });
+}
+
+// Serves tests/fixtures, /tone.wav, /click.wav and /howler.js. Any *.localhost
+// host name reaches it, and each host is its own site.
 export async function startServer() {
-  const tone = toneWav();
+  const sounds = { '/tone.wav': wav(tone()), '/click.wav': wav(click()) };
   const server = createServer(async (request, response) => {
     const url = new URL(request.url, 'http://localhost');
-    if (url.pathname === '/tone.wav') {
-      const headers = { 'Content-Type': 'audio/wav', 'Content-Length': tone.length, 'Cache-Control': 'no-store' };
+    const sound = sounds[url.pathname];
+    if (sound) {
+      const headers = { 'Content-Type': 'audio/wav', 'Content-Length': sound.length, 'Cache-Control': 'no-store' };
       if (url.searchParams.has('cors')) headers['Access-Control-Allow-Origin'] = '*';
       response.writeHead(200, headers);
-      response.end(tone);
+      response.end(sound);
+      return;
+    }
+    if (url.pathname === '/howler.js') {
+      response.writeHead(200, { 'Content-Type': 'text/javascript' });
+      response.end(await readFile(HOWLER));
       return;
     }
     if (url.pathname === '/favicon.ico') {
@@ -194,7 +216,7 @@ export async function engineStatus(browser, tabId) {
     return results.map((result) => result.result).filter(Boolean);
   }, tabId);
   const total = { frames: frames.length, gains: frames.map((f) => f.gain), issues: {} };
-  for (const key of ['media', 'playing', 'boosted', 'scaled', 'viaPage', 'graphs']) {
+  for (const key of ['media', 'playing', 'recent', 'boosted', 'scaled', 'viaPage', 'graphs']) {
     total[key] = frames.reduce((sum, frame) => sum + (frame[key] || 0), 0);
   }
   for (const frame of frames) {
@@ -248,6 +270,48 @@ export async function assertLevel(browser, tabId, percent, message = '') {
   if (percent === 0) assert.ok(level < 0.002, label);
   else assert.ok(Math.abs(level - expected) / expected < 0.1, label);
   return level;
+}
+
+// Peak level the tab outputs while `trigger` runs, for short sounds such as a
+// chess move.
+export async function measureShot(browser, tabId, trigger, { tail = 500 } = {}) {
+  await browser.controller.evaluate(async (target) => {
+    const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: target });
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { mandatory: { chromeMediaSource: 'tab', chromeMediaSourceId: streamId } },
+    });
+    const context = new AudioContext();
+    await context.resume();
+    const shot = { stream, context, peak: 0 };
+    // Sees every sample, so a 100 ms blip cannot fall between two reads.
+    const processor = context.createScriptProcessor(1024, 1, 1);
+    processor.onaudioprocess = (event) => {
+      for (const sample of event.inputBuffer.getChannelData(0)) shot.peak = Math.max(shot.peak, Math.abs(sample));
+    };
+    context.createMediaStreamSource(stream).connect(processor);
+    processor.connect(context.destination);
+    window.__shot = shot;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    shot.peak = 0;
+  }, tabId);
+  await trigger();
+  return browser.controller.evaluate(async (tailMs) => {
+    await new Promise((resolve) => setTimeout(resolve, tailMs));
+    const { stream, context, peak } = window.__shot;
+    delete window.__shot;
+    for (const track of stream.getTracks()) track.stop();
+    await context.close();
+    return peak;
+  }, tail);
+}
+
+// Asserts that the sound `trigger` causes peaks at `percent` % of /click.wav.
+export async function assertShot(browser, tabId, trigger, percent, message = '') {
+  const peak = await measureShot(browser, tabId, trigger);
+  const expected = (CLICK_AMPLITUDE * percent) / 100;
+  const label = `${message ? `${message}: ` : ''}expected a peak of ${percent}% (${expected.toFixed(3)}), got ${peak.toFixed(3)} (${((peak / CLICK_AMPLITUDE) * 100).toFixed(1)}%)`;
+  assert.ok(Math.abs(peak - expected) / expected < 0.1, label);
+  return peak;
 }
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

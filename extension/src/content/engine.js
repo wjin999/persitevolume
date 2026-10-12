@@ -22,7 +22,9 @@
   const REPORT = 'persitevolume:report';
   const PROTOCOL = 1;
   const MAX_GAIN = 10;
-  const RAMP_SECONDS = 0.01;
+  const RAMP_SECONDS = 0.02;
+  // Chrome keeps showing a tab as playing for a moment after a short sound.
+  const RECENT_MS = 3000;
 
   // A same-origin navigation away from an initial about:blank document keeps
   // the Window, and with it our hooks; only the listeners need re-attaching.
@@ -72,11 +74,12 @@
   const getTracks = NativeMediaStream.prototype.getTracks;
   const stopTrack = MediaStreamTrack.prototype.stop;
   const setTimer = window.setTimeout;
+  const now = Date.now;
   const { stringify, parse } = JSON;
   const noop = () => {};
 
   const DISCOVERY_EVENTS = ['play', 'playing'];
-  const ELEMENT_EVENTS = ['playing', 'loadedmetadata', 'emptied', 'volumechange'];
+  const ELEMENT_EVENTS = ['playing', 'loadedmetadata', 'emptied', 'volumechange', 'pause', 'ended'];
   const GESTURE_EVENTS = ['pointerdown', 'pointerup', 'mousedown', 'keydown', 'touchend', 'click'];
   const GESTURE_OPTIONS = { capture: true, passive: true };
 
@@ -96,6 +99,7 @@
   const foreign = new WeakSet(); // elements wired into a graph we cannot see
   const blocked = new WeakMap(); // element -> why it cannot be boosted right now
   const verdicts = new WeakMap(); // element -> whether its media is cross-origin
+  const stoppedAt = new WeakMap(); // element -> when it last stopped playing
   const pageMasters = new WeakMap(); // page AudioContext -> our gain node in front of its destination
   const pageMasterRefs = new Set(); // WeakRef<GainNode>
 
@@ -107,12 +111,17 @@
     }
   }
 
+  // A short linear ramp avoids clicks. Chrome skips nodes that have nothing to
+  // play (a board between two moves) and only advances setTargetAtTime() while
+  // processing, so the next move sound would start out at the old volume; a
+  // linear ramp is worked out from the clock instead.
   function rampTo(node, value) {
     const param = node.gain;
     try {
       const now = node.context.currentTime;
       param.cancelScheduledValues(now);
-      param.setTargetAtTime(value, now, RAMP_SECONDS);
+      param.setValueAtTime(param.value, now);
+      param.linearRampToValueAtTime(value, now + RAMP_SECONDS);
     } catch {
       param.value = value;
     }
@@ -301,6 +310,7 @@
   function onElementEvent(event) {
     const element = this;
     try {
+      if (event.type === 'pause' || event.type === 'ended') stoppedAt.set(element, now());
       if (event.type === 'emptied' || event.type === 'loadedmetadata') {
         // A new source: its origin has to be checked again.
         verdicts.delete(element);
@@ -504,14 +514,20 @@
   function describe() {
     let media = 0;
     let playing = 0;
+    let recent = 0; // playing, or stopped a moment ago
     let boosted = 0;
     let scaledCount = 0;
     let viaPage = 0;
     const issues = {};
+    const time = now();
     for (const element of live(elements)) {
       media += 1;
-      if (element.paused) continue;
+      if (element.paused) {
+        if (time - (stoppedAt.get(element) ?? -Infinity) < RECENT_MS) recent += 1;
+        continue;
+      }
       playing += 1;
+      recent += 1;
       if (pageOwned.has(element)) viaPage += 1;
       else if (routed.has(element)) boosted += 1;
       else if (scaled.has(element)) scaledCount += 1;
@@ -527,6 +543,7 @@
       gain,
       media,
       playing,
+      recent,
       boosted,
       scaled: scaledCount,
       viaPage,
