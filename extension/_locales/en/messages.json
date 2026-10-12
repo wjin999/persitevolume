@@ -1,0 +1,312 @@
+{
+  "extName": {
+    "message": "PerSite Volume"
+  },
+  "extShortName": {
+    "message": "PerSite Volume"
+  },
+  "extDescription": {
+    "message": "Turn any web page down, or boost it up to 600%, and it stays that way: the volume is remembered for every site."
+  },
+  "commandVolumeUp": {
+    "message": "Volume up"
+  },
+  "commandVolumeDown": {
+    "message": "Volume down"
+  },
+  "localFiles": {
+    "message": "Local files"
+  },
+  "thisPage": {
+    "message": "This page"
+  },
+  "openOptions": {
+    "message": "Settings"
+  },
+  "unsupportedTitle": {
+    "message": "Volume can't be changed here"
+  },
+  "unsupported_page": {
+    "message": "Chrome doesn't let extensions run on browser pages like this one."
+  },
+  "unsupported_store": {
+    "message": "Chrome doesn't let extensions run on the Chrome Web Store."
+  },
+  "unsupported_file": {
+    "message": "To control local files, turn on “Allow access to file URLs” for this extension."
+  },
+  "openExtensionSettings": {
+    "message": "Open extension settings"
+  },
+  "decrease": {
+    "message": "Turn down"
+  },
+  "increase": {
+    "message": "Turn up"
+  },
+  "volume": {
+    "message": "Volume"
+  },
+  "mode_site": {
+    "message": "Saved for this site"
+  },
+  "mode_tab": {
+    "message": "This tab only"
+  },
+  "mode_default": {
+    "message": "Default volume"
+  },
+  "rememberSite": {
+    "message": "Remember for this site"
+  },
+  "rememberOn": {
+    "message": "Used automatically whenever you open $SITE$",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "rememberOff": {
+    "message": "Only this tab, until it leaves the site"
+  },
+  "rememberIncognito": {
+    "message": "Incognito: changes are not saved"
+  },
+  "enhancedMode": {
+    "message": "Enhanced mode"
+  },
+  "enhancedModeHint": {
+    "message": "Captures all of this tab's audio, like Volume Master. Fullscreen video stays inside the window."
+  },
+  "enhancedFailed": {
+    "message": "Enhanced mode could not start: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Error: Permission denied"
+      }
+    }
+  },
+  "noticeReload": {
+    "message": "This page was opened before the extension was installed or updated. Reload it to control its volume."
+  },
+  "reload": {
+    "message": "Reload page"
+  },
+  "noticeGesture": {
+    "message": "Click anywhere on the page once to allow boosting (Chrome's autoplay rules)."
+  },
+  "noticeCannotBoost": {
+    "message": "Some audio on this page comes from another site without permission and can't go above 100%. Enhanced mode can boost it."
+  },
+  "useEnhanced": {
+    "message": "Use enhanced mode"
+  },
+  "noticeNoSource": {
+    "message": "This tab plays sound the extension can't reach. Enhanced mode can control it."
+  },
+  "statusEnhanced": {
+    "message": "Enhanced mode: all of this tab's audio is controlled"
+  },
+  "statusControlling": {
+    "message": "Controlling $COUNT$ playing audio source(s)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "statusIdle": {
+    "message": "The volume applies as soon as the page plays sound"
+  },
+  "playingTabs": {
+    "message": "Tabs playing audio"
+  },
+  "noPlayingTabs": {
+    "message": "No tab is playing audio right now."
+  },
+  "optionsTitle": {
+    "message": "PerSite Volume settings"
+  },
+  "optionsTagline": {
+    "message": "Per-site volume, with boost up to 600%"
+  },
+  "generalSection": {
+    "message": "General"
+  },
+  "defaultVolume": {
+    "message": "Default volume"
+  },
+  "defaultVolumeHint": {
+    "message": "Used on sites without a saved volume."
+  },
+  "maxVolume": {
+    "message": "Slider maximum"
+  },
+  "maxVolumeHint": {
+    "message": "Highest value on the popup slider. Strong boosts make loud audio distort."
+  },
+  "stepSize": {
+    "message": "Step size"
+  },
+  "stepSizeHint": {
+    "message": "How much the + and − buttons and the keyboard shortcuts change the volume."
+  },
+  "rememberByDefault": {
+    "message": "Remember changes automatically"
+  },
+  "rememberByDefaultHint": {
+    "message": "When off, a change only applies to the current tab unless you turn on “Remember for this site” in the popup."
+  },
+  "showBadge": {
+    "message": "Show the volume on the toolbar icon"
+  },
+  "showBadgeHint": {
+    "message": "Shown whenever a tab is not at 100%."
+  },
+  "shortcuts": {
+    "message": "Keyboard shortcuts"
+  },
+  "shortcutsHint": {
+    "message": "Volume up: $UP$ · Volume down: $DOWN$",
+    "placeholders": {
+      "up": {
+        "content": "$1",
+        "example": "Alt+Shift+Up"
+      },
+      "down": {
+        "content": "$2",
+        "example": "Alt+Shift+Down"
+      }
+    }
+  },
+  "shortcutNotSet": {
+    "message": "not set"
+  },
+  "editShortcuts": {
+    "message": "Change shortcuts"
+  },
+  "sitesSection": {
+    "message": "Saved sites"
+  },
+  "sitesHint": {
+    "message": "Each site keeps its own volume. Changes here apply to open tabs right away."
+  },
+  "addSitePlaceholder": {
+    "message": "Site, e.g. youtube.com"
+  },
+  "addSite": {
+    "message": "Add"
+  },
+  "invalidSite": {
+    "message": "Enter a site such as youtube.com, or a full web address."
+  },
+  "invalidVolume": {
+    "message": "Enter a volume between 0 and 600."
+  },
+  "searchSites": {
+    "message": "Search saved sites"
+  },
+  "columnSite": {
+    "message": "Site"
+  },
+  "columnVolume": {
+    "message": "Volume"
+  },
+  "columnUpdated": {
+    "message": "Last changed"
+  },
+  "columnActions": {
+    "message": "Actions"
+  },
+  "volumeFor": {
+    "message": "Volume for $SITE$",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "deleteSite": {
+    "message": "Forget $SITE$",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "noSites": {
+    "message": "No saved sites yet. Change the volume on any site and it shows up here."
+  },
+  "noSearchResults": {
+    "message": "No saved site matches your search."
+  },
+  "deleteAll": {
+    "message": "Forget all sites"
+  },
+  "deleteAllConfirm": {
+    "message": "Forget all $COUNT$ saved sites? They go back to the default volume.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "backupSection": {
+    "message": "Backup"
+  },
+  "backupHint": {
+    "message": "Save your sites and settings to a file, or restore them on another computer. Importing adds to the sites you already have."
+  },
+  "exportSettings": {
+    "message": "Export…"
+  },
+  "importSettings": {
+    "message": "Import…"
+  },
+  "exportDone": {
+    "message": "Exported $COUNT$ site(s).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importDone": {
+    "message": "Imported $COUNT$ site(s).",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importInvalid": {
+    "message": "That file is not a PerSite Volume backup."
+  },
+  "aboutSection": {
+    "message": "Good to know"
+  },
+  "aboutRemember": {
+    "message": "Volumes are saved per site (the host name without “www.”), so www.youtube.com and youtube.com share one. Embedded frames from other sites follow the site of the tab."
+  },
+  "aboutHow": {
+    "message": "Below 100%, each media element's volume is scaled while the site's own volume control keeps working. Above 100%, audio is routed through the Web Audio API to amplify it."
+  },
+  "aboutLimits": {
+    "message": "Media that a site loads from another site without CORS permission can be turned down but not boosted, and Chrome may want one click on a page before boosting starts. The popup tells you when either happens."
+  },
+  "aboutEnhanced": {
+    "message": "Enhanced mode captures the whole tab, as Volume Master does, so any sound can be boosted. Chrome only allows it from the popup, it ends when the tab closes, and fullscreen video only fills the browser window while it is on."
+  },
+  "aboutPrivacy": {
+    "message": "Everything stays in your browser. The extension has no servers and collects no data."
+  }
+}

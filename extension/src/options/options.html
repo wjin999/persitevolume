@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>PerSite Volume</title>
+    <link rel="stylesheet" href="options.css" />
+    <script type="module" src="options.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <img src="../../icons/icon-128.png" width="44" height="44" alt="" />
+        <div>
+          <h1 data-i18n="extName"></h1>
+          <p data-i18n="optionsTagline"></p>
+        </div>
+      </header>
+
+      <section class="card" aria-labelledby="generalTitle">
+        <h2 id="generalTitle" data-i18n="generalSection"></h2>
+
+        <div class="field">
+          <div class="field-text">
+            <label for="defaultVolume" data-i18n="defaultVolume"></label>
+            <p class="hint" data-i18n="defaultVolumeHint"></p>
+          </div>
+          <div class="field-control range-control">
+            <input id="defaultVolume" type="range" min="0" max="600" step="5" />
+            <output id="defaultVolumeValue" for="defaultVolume"></output>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-text">
+            <label for="maxVolume" data-i18n="maxVolume"></label>
+            <p class="hint" data-i18n="maxVolumeHint"></p>
+          </div>
+          <div class="field-control">
+            <select id="maxVolume"></select>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="field-text">
+            <label for="step" data-i18n="stepSize"></label>
+            <p class="hint" data-i18n="stepSizeHint"></p>
+          </div>
+          <div class="field-control">
+            <select id="step"></select>
+          </div>
+        </div>
+
+        <label class="field" for="rememberByDefault">
+          <span class="field-text">
+            <span class="label" data-i18n="rememberByDefault"></span>
+            <span class="hint" data-i18n="rememberByDefaultHint"></span>
+          </span>
+          <span class="field-control">
+            <input id="rememberByDefault" class="switch" type="checkbox" role="switch" />
+          </span>
+        </label>
+
+        <label class="field" for="showBadge">
+          <span class="field-text">
+            <span class="label" data-i18n="showBadge"></span>
+            <span class="hint" data-i18n="showBadgeHint"></span>
+          </span>
+          <span class="field-control">
+            <input id="showBadge" class="switch" type="checkbox" role="switch" />
+          </span>
+        </label>
+
+        <div class="field">
+          <div class="field-text">
+            <span class="label" data-i18n="shortcuts"></span>
+            <p class="hint" id="shortcutsHint"></p>
+          </div>
+          <div class="field-control">
+            <button class="button" id="editShortcuts" type="button" data-i18n="editShortcuts"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="sitesTitle">
+        <div class="card-head">
+          <h2 id="sitesTitle" data-i18n="sitesSection"></h2>
+          <span class="count" id="siteCount"></span>
+        </div>
+        <p class="hint" data-i18n="sitesHint"></p>
+
+        <form class="add-site" id="addSite" novalidate>
+          <input
+            id="addSiteName"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            data-i18n-placeholder="addSitePlaceholder"
+            data-i18n-aria-label="columnSite"
+          />
+          <span class="number-field">
+            <input
+              id="addSiteVolume"
+              type="number"
+              min="0"
+              max="600"
+              step="1"
+              value="150"
+              data-i18n-aria-label="columnVolume"
+            />
+            <span class="unit">%</span>
+          </span>
+          <button class="button primary" type="submit" data-i18n="addSite"></button>
+        </form>
+        <p class="form-error" id="addSiteError" role="alert" hidden></p>
+
+        <div class="table-tools" id="tableTools">
+          <input id="search" type="search" data-i18n-placeholder="searchSites" data-i18n-aria-label="searchSites" />
+        </div>
+
+        <div class="table-wrap">
+          <table class="sites" id="sitesTable">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="columnSite"></th>
+                <th scope="col" data-i18n="columnVolume"></th>
+                <th scope="col" class="updated" data-i18n="columnUpdated"></th>
+                <th scope="col"><span class="visually-hidden" data-i18n="columnActions"></span></th>
+              </tr>
+            </thead>
+            <tbody id="siteRows"></tbody>
+          </table>
+        </div>
+        <p class="empty" id="sitesEmpty" data-i18n="noSites" hidden></p>
+        <p class="empty" id="searchEmpty" data-i18n="noSearchResults" hidden></p>
+
+        <div class="card-foot">
+          <button class="button danger" id="deleteAll" type="button" data-i18n="deleteAll"></button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="backupTitle">
+        <h2 id="backupTitle" data-i18n="backupSection"></h2>
+        <p class="hint" data-i18n="backupHint"></p>
+        <div class="actions">
+          <button class="button" id="exportSettings" type="button" data-i18n="exportSettings"></button>
+          <button class="button" id="importSettings" type="button" data-i18n="importSettings"></button>
+          <input id="importFile" type="file" accept="application/json,.json" hidden />
+        </div>
+        <p class="message" id="backupMessage" role="status"></p>
+      </section>
+
+      <section class="card about" aria-labelledby="aboutTitle">
+        <h2 id="aboutTitle" data-i18n="aboutSection"></h2>
+        <ul>
+          <li data-i18n="aboutRemember"></li>
+          <li data-i18n="aboutHow"></li>
+          <li data-i18n="aboutLimits"></li>
+          <li data-i18n="aboutEnhanced"></li>
+          <li data-i18n="aboutPrivacy"></li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
