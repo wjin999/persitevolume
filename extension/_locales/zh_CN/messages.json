@@ -1,0 +1,312 @@
+{
+  "extName": {
+    "message": "网页音量记忆 - PerSite Volume"
+  },
+  "extShortName": {
+    "message": "网页音量记忆"
+  },
+  "extDescription": {
+    "message": "调低任意网页的音量或放大至 600%，并为每个网站自动记住，下次打开无需重新设置。"
+  },
+  "commandVolumeUp": {
+    "message": "调高音量"
+  },
+  "commandVolumeDown": {
+    "message": "调低音量"
+  },
+  "localFiles": {
+    "message": "本地文件"
+  },
+  "thisPage": {
+    "message": "此页面"
+  },
+  "openOptions": {
+    "message": "设置"
+  },
+  "unsupportedTitle": {
+    "message": "无法在此页面调节音量"
+  },
+  "unsupported_page": {
+    "message": "Chrome 不允许扩展程序在此类浏览器内置页面上运行。"
+  },
+  "unsupported_store": {
+    "message": "Chrome 不允许扩展程序在 Chrome 应用商店页面上运行。"
+  },
+  "unsupported_file": {
+    "message": "如需控制本地文件，请在扩展程序详情中开启“允许访问文件网址”。"
+  },
+  "openExtensionSettings": {
+    "message": "打开扩展程序设置"
+  },
+  "decrease": {
+    "message": "调低"
+  },
+  "increase": {
+    "message": "调高"
+  },
+  "volume": {
+    "message": "音量"
+  },
+  "mode_site": {
+    "message": "已为此网站保存"
+  },
+  "mode_tab": {
+    "message": "仅限此标签页"
+  },
+  "mode_default": {
+    "message": "默认音量"
+  },
+  "rememberSite": {
+    "message": "记住此网站的音量"
+  },
+  "rememberOn": {
+    "message": "以后打开 $SITE$ 时自动使用",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "rememberOff": {
+    "message": "仅对此标签页生效，离开该网站后失效"
+  },
+  "rememberIncognito": {
+    "message": "无痕模式：更改不会被保存"
+  },
+  "enhancedMode": {
+    "message": "增强模式"
+  },
+  "enhancedModeHint": {
+    "message": "像 Volume Master 一样捕获整个标签页的声音。开启后视频全屏只能铺满窗口。"
+  },
+  "enhancedFailed": {
+    "message": "无法开启增强模式：$ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Error: Permission denied"
+      }
+    }
+  },
+  "noticeReload": {
+    "message": "此页面在扩展程序安装或更新之前就已打开，请刷新页面以控制音量。"
+  },
+  "reload": {
+    "message": "刷新页面"
+  },
+  "noticeGesture": {
+    "message": "请在网页上任意位置点击一下，以允许放大音量（Chrome 自动播放限制）。"
+  },
+  "noticeCannotBoost": {
+    "message": "此页面的部分音频来自其他网站且未获授权，无法放大到 100% 以上。增强模式可以放大它们。"
+  },
+  "useEnhanced": {
+    "message": "使用增强模式"
+  },
+  "noticeNoSource": {
+    "message": "此标签页正在播放扩展程序无法接管的声音，增强模式可以控制它。"
+  },
+  "statusEnhanced": {
+    "message": "增强模式：此标签页的全部声音都在控制中"
+  },
+  "statusControlling": {
+    "message": "正在控制 $COUNT$ 个播放中的音频来源",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "statusIdle": {
+    "message": "网页播放声音时会立即应用此音量"
+  },
+  "playingTabs": {
+    "message": "正在播放声音的标签页"
+  },
+  "noPlayingTabs": {
+    "message": "目前没有正在播放声音的标签页。"
+  },
+  "optionsTitle": {
+    "message": "网页音量记忆 - 设置"
+  },
+  "optionsTagline": {
+    "message": "按网站记住音量，最高可放大至 600%"
+  },
+  "generalSection": {
+    "message": "常规"
+  },
+  "defaultVolume": {
+    "message": "默认音量"
+  },
+  "defaultVolumeHint": {
+    "message": "用于没有保存音量的网站。"
+  },
+  "maxVolume": {
+    "message": "滑块最大值"
+  },
+  "maxVolumeHint": {
+    "message": "弹出窗口中滑块的最高值。放大过多时，较响的声音会失真。"
+  },
+  "stepSize": {
+    "message": "调节步长"
+  },
+  "stepSizeHint": {
+    "message": "“+”“−”按钮和快捷键每次调节的幅度。"
+  },
+  "rememberByDefault": {
+    "message": "自动记住调节结果"
+  },
+  "rememberByDefaultHint": {
+    "message": "关闭后，调节只对当前标签页生效，除非在弹出窗口中开启“记住此网站的音量”。"
+  },
+  "showBadge": {
+    "message": "在工具栏图标上显示音量"
+  },
+  "showBadgeHint": {
+    "message": "标签页音量不是 100% 时显示。"
+  },
+  "shortcuts": {
+    "message": "快捷键"
+  },
+  "shortcutsHint": {
+    "message": "调高音量：$UP$ · 调低音量：$DOWN$",
+    "placeholders": {
+      "up": {
+        "content": "$1",
+        "example": "Alt+Shift+Up"
+      },
+      "down": {
+        "content": "$2",
+        "example": "Alt+Shift+Down"
+      }
+    }
+  },
+  "shortcutNotSet": {
+    "message": "未设置"
+  },
+  "editShortcuts": {
+    "message": "修改快捷键"
+  },
+  "sitesSection": {
+    "message": "已保存的网站"
+  },
+  "sitesHint": {
+    "message": "每个网站都有独立的音量，在这里修改后会立即应用到已打开的标签页。"
+  },
+  "addSitePlaceholder": {
+    "message": "网站，例如 youtube.com"
+  },
+  "addSite": {
+    "message": "添加"
+  },
+  "invalidSite": {
+    "message": "请输入网站（如 youtube.com）或完整网址。"
+  },
+  "invalidVolume": {
+    "message": "请输入 0 到 600 之间的音量。"
+  },
+  "searchSites": {
+    "message": "搜索已保存的网站"
+  },
+  "columnSite": {
+    "message": "网站"
+  },
+  "columnVolume": {
+    "message": "音量"
+  },
+  "columnUpdated": {
+    "message": "最后修改"
+  },
+  "columnActions": {
+    "message": "操作"
+  },
+  "volumeFor": {
+    "message": "$SITE$ 的音量",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "deleteSite": {
+    "message": "忘记 $SITE$",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "noSites": {
+    "message": "还没有保存的网站。在任意网站调节音量后，它就会出现在这里。"
+  },
+  "noSearchResults": {
+    "message": "没有匹配的网站。"
+  },
+  "deleteAll": {
+    "message": "忘记所有网站"
+  },
+  "deleteAllConfirm": {
+    "message": "确定要忘记全部 $COUNT$ 个已保存的网站吗？它们将恢复为默认音量。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "backupSection": {
+    "message": "备份与恢复"
+  },
+  "backupHint": {
+    "message": "将网站和设置保存到文件，或在其他电脑上恢复。导入会添加到现有的网站中。"
+  },
+  "exportSettings": {
+    "message": "导出…"
+  },
+  "importSettings": {
+    "message": "导入…"
+  },
+  "exportDone": {
+    "message": "已导出 $COUNT$ 个网站。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importDone": {
+    "message": "已导入 $COUNT$ 个网站。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importInvalid": {
+    "message": "该文件不是有效的 PerSite Volume 备份。"
+  },
+  "aboutSection": {
+    "message": "使用说明"
+  },
+  "aboutRemember": {
+    "message": "音量按网站（去掉“www.”的主机名）保存，因此 www.youtube.com 和 youtube.com 共用一个音量。来自其他网站的内嵌框架跟随标签页所在网站的设置。"
+  },
+  "aboutHow": {
+    "message": "低于 100% 时，按比例调低每个媒体元素的音量，网站自带的音量控制仍然可用；高于 100% 时，通过 Web Audio API 放大声音。"
+  },
+  "aboutLimits": {
+    "message": "网站从其他网站加载、且未获 CORS 授权的媒体只能调低、不能放大；Chrome 也可能要求先在网页上点击一下才能开始放大。遇到这些情况时，弹出窗口会给出提示。"
+  },
+  "aboutEnhanced": {
+    "message": "增强模式像 Volume Master 一样捕获整个标签页，因此任何声音都能放大。Chrome 只允许从弹出窗口开启，标签页关闭时结束，开启期间视频全屏只能铺满浏览器窗口。"
+  },
+  "aboutPrivacy": {
+    "message": "所有数据都保存在你的浏览器中。扩展程序没有服务器，也不收集任何数据。"
+  }
+}

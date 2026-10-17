@@ -1,0 +1,13 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>shadow</title>
+<div id="host"></div>
+<script>
+  // Autoplays inside a closed shadow root: no play() call, invisible to the document.
+  const root = document.getElementById('host').attachShadow({ mode: 'closed' });
+  const audio = document.createElement('audio');
+  audio.src = '/tone.wav';
+  audio.loop = true;
+  audio.autoplay = true;
+  root.append(audio);
+</script>

@@ -1,0 +1,312 @@
+{
+  "extName": {
+    "message": "網頁音量記憶 - PerSite Volume"
+  },
+  "extShortName": {
+    "message": "網頁音量記憶"
+  },
+  "extDescription": {
+    "message": "調低任何網頁的音量或放大至 600%，並為每個網站自動記住，下次開啟無需重新設定。"
+  },
+  "commandVolumeUp": {
+    "message": "調高音量"
+  },
+  "commandVolumeDown": {
+    "message": "調低音量"
+  },
+  "localFiles": {
+    "message": "本機檔案"
+  },
+  "thisPage": {
+    "message": "此頁面"
+  },
+  "openOptions": {
+    "message": "設定"
+  },
+  "unsupportedTitle": {
+    "message": "無法在此頁面調整音量"
+  },
+  "unsupported_page": {
+    "message": "Chrome 不允許擴充功能在這類瀏覽器內建頁面上執行。"
+  },
+  "unsupported_store": {
+    "message": "Chrome 不允許擴充功能在 Chrome 線上應用程式商店頁面上執行。"
+  },
+  "unsupported_file": {
+    "message": "如需控制本機檔案，請在擴充功能詳細資料中開啟「允許存取檔案網址」。"
+  },
+  "openExtensionSettings": {
+    "message": "開啟擴充功能設定"
+  },
+  "decrease": {
+    "message": "調低"
+  },
+  "increase": {
+    "message": "調高"
+  },
+  "volume": {
+    "message": "音量"
+  },
+  "mode_site": {
+    "message": "已為此網站儲存"
+  },
+  "mode_tab": {
+    "message": "僅限此分頁"
+  },
+  "mode_default": {
+    "message": "預設音量"
+  },
+  "rememberSite": {
+    "message": "記住此網站的音量"
+  },
+  "rememberOn": {
+    "message": "之後開啟 $SITE$ 時自動套用",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "rememberOff": {
+    "message": "僅對此分頁有效，離開該網站後失效"
+  },
+  "rememberIncognito": {
+    "message": "無痕模式：變更不會被儲存"
+  },
+  "enhancedMode": {
+    "message": "增強模式"
+  },
+  "enhancedModeHint": {
+    "message": "像 Volume Master 一樣擷取整個分頁的聲音。開啟後影片全螢幕只能填滿視窗。"
+  },
+  "enhancedFailed": {
+    "message": "無法開啟增強模式：$ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Error: Permission denied"
+      }
+    }
+  },
+  "noticeReload": {
+    "message": "此頁面在擴充功能安裝或更新之前就已開啟，請重新整理頁面以控制音量。"
+  },
+  "reload": {
+    "message": "重新整理頁面"
+  },
+  "noticeGesture": {
+    "message": "請在網頁上任意位置點一下，以允許放大音量（Chrome 自動播放限制）。"
+  },
+  "noticeCannotBoost": {
+    "message": "此頁面的部分音訊來自其他網站且未獲授權，無法放大到 100% 以上。增強模式可以放大它們。"
+  },
+  "useEnhanced": {
+    "message": "使用增強模式"
+  },
+  "noticeNoSource": {
+    "message": "此分頁正在播放擴充功能無法接管的聲音，增強模式可以控制它。"
+  },
+  "statusEnhanced": {
+    "message": "增強模式：此分頁的所有聲音都在控制中"
+  },
+  "statusControlling": {
+    "message": "正在控制 $COUNT$ 個播放中的音訊來源",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "statusIdle": {
+    "message": "網頁播放聲音時會立即套用此音量"
+  },
+  "playingTabs": {
+    "message": "正在播放聲音的分頁"
+  },
+  "noPlayingTabs": {
+    "message": "目前沒有正在播放聲音的分頁。"
+  },
+  "optionsTitle": {
+    "message": "網頁音量記憶 - 設定"
+  },
+  "optionsTagline": {
+    "message": "依網站記住音量，最高可放大至 600%"
+  },
+  "generalSection": {
+    "message": "一般"
+  },
+  "defaultVolume": {
+    "message": "預設音量"
+  },
+  "defaultVolumeHint": {
+    "message": "用於沒有儲存音量的網站。"
+  },
+  "maxVolume": {
+    "message": "滑桿最大值"
+  },
+  "maxVolumeHint": {
+    "message": "彈出視窗中滑桿的最高值。放大過多時，較大的聲音會失真。"
+  },
+  "stepSize": {
+    "message": "調整幅度"
+  },
+  "stepSizeHint": {
+    "message": "「+」「−」按鈕和快速鍵每次調整的幅度。"
+  },
+  "rememberByDefault": {
+    "message": "自動記住調整結果"
+  },
+  "rememberByDefaultHint": {
+    "message": "關閉後，調整只對目前分頁有效，除非在彈出視窗中開啟「記住此網站的音量」。"
+  },
+  "showBadge": {
+    "message": "在工具列圖示上顯示音量"
+  },
+  "showBadgeHint": {
+    "message": "分頁音量不是 100% 時顯示。"
+  },
+  "shortcuts": {
+    "message": "快速鍵"
+  },
+  "shortcutsHint": {
+    "message": "調高音量：$UP$ · 調低音量：$DOWN$",
+    "placeholders": {
+      "up": {
+        "content": "$1",
+        "example": "Alt+Shift+Up"
+      },
+      "down": {
+        "content": "$2",
+        "example": "Alt+Shift+Down"
+      }
+    }
+  },
+  "shortcutNotSet": {
+    "message": "未設定"
+  },
+  "editShortcuts": {
+    "message": "修改快速鍵"
+  },
+  "sitesSection": {
+    "message": "已儲存的網站"
+  },
+  "sitesHint": {
+    "message": "每個網站都有獨立的音量，在這裡修改後會立即套用到已開啟的分頁。"
+  },
+  "addSitePlaceholder": {
+    "message": "網站，例如 youtube.com"
+  },
+  "addSite": {
+    "message": "新增"
+  },
+  "invalidSite": {
+    "message": "請輸入網站（如 youtube.com）或完整網址。"
+  },
+  "invalidVolume": {
+    "message": "請輸入 0 到 600 之間的音量。"
+  },
+  "searchSites": {
+    "message": "搜尋已儲存的網站"
+  },
+  "columnSite": {
+    "message": "網站"
+  },
+  "columnVolume": {
+    "message": "音量"
+  },
+  "columnUpdated": {
+    "message": "最後修改"
+  },
+  "columnActions": {
+    "message": "操作"
+  },
+  "volumeFor": {
+    "message": "$SITE$ 的音量",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "deleteSite": {
+    "message": "忘記 $SITE$",
+    "placeholders": {
+      "site": {
+        "content": "$1",
+        "example": "youtube.com"
+      }
+    }
+  },
+  "noSites": {
+    "message": "還沒有儲存的網站。在任何網站調整音量後，它就會出現在這裡。"
+  },
+  "noSearchResults": {
+    "message": "沒有符合的網站。"
+  },
+  "deleteAll": {
+    "message": "忘記所有網站"
+  },
+  "deleteAllConfirm": {
+    "message": "確定要忘記全部 $COUNT$ 個已儲存的網站嗎？它們將恢復為預設音量。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "backupSection": {
+    "message": "備份與還原"
+  },
+  "backupHint": {
+    "message": "將網站和設定儲存為檔案，或在其他電腦上還原。匯入會加入到現有的網站中。"
+  },
+  "exportSettings": {
+    "message": "匯出…"
+  },
+  "importSettings": {
+    "message": "匯入…"
+  },
+  "exportDone": {
+    "message": "已匯出 $COUNT$ 個網站。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importDone": {
+    "message": "已匯入 $COUNT$ 個網站。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "importInvalid": {
+    "message": "此檔案不是有效的 PerSite Volume 備份。"
+  },
+  "aboutSection": {
+    "message": "使用說明"
+  },
+  "aboutRemember": {
+    "message": "音量依網站（去掉「www.」的主機名稱）儲存，因此 www.youtube.com 和 youtube.com 共用一個音量。來自其他網站的內嵌框架會跟隨分頁所在網站的設定。"
+  },
+  "aboutHow": {
+    "message": "低於 100% 時，依比例調低每個媒體元素的音量，網站本身的音量控制仍可使用；高於 100% 時，透過 Web Audio API 放大聲音。"
+  },
+  "aboutLimits": {
+    "message": "網站從其他網站載入且未獲 CORS 授權的媒體只能調低、不能放大；Chrome 也可能要求先在網頁上點一下才能開始放大。遇到這些情況時，彈出視窗會提示你。"
+  },
+  "aboutEnhanced": {
+    "message": "增強模式像 Volume Master 一樣擷取整個分頁，因此任何聲音都能放大。Chrome 只允許從彈出視窗啟用，分頁關閉時結束，啟用期間影片全螢幕只能填滿瀏覽器視窗。"
+  },
+  "aboutPrivacy": {
+    "message": "所有資料都儲存在你的瀏覽器中。擴充功能沒有伺服器，也不會收集任何資料。"
+  }
+}

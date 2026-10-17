@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
+    <title>PerSite Volume</title>
+    <link rel="stylesheet" href="popup.css" />
+    <script type="module" src="popup.js"></script>
+  </head>
+  <body>
+    <main class="app" id="app" aria-busy="true">
+      <header class="header">
+        <img class="favicon" id="favicon" alt="" width="20" height="20" />
+        <div class="site">
+          <h1 class="site-name" id="siteName"></h1>
+          <p class="site-mode" id="siteMode"></p>
+        </div>
+        <button
+          class="icon-button"
+          id="openOptions"
+          type="button"
+          data-i18n-title="openOptions"
+          data-i18n-aria-label="openOptions"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-.98l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.61-.22l-2.49 1a7.3 7.3 0 0 0-1.69-.98l-.38-2.65A.49.49 0 0 0 14 2h-4a.49.49 0 0 0-.49.42l-.38 2.65c-.61.25-1.17.58-1.69.98l-2.49-1a.5.5 0 0 0-.61.22l-2 3.46a.49.49 0 0 0 .12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.65.07.97l-2.11 1.65a.5.5 0 0 0-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.64l-2.11-1.65Z"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <section class="card unsupported" id="unsupported" hidden>
+        <svg class="unsupported-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM4 12a8 8 0 0 1 12.9-6.32L5.68 16.9A7.95 7.95 0 0 1 4 12Zm8 8a7.95 7.95 0 0 1-4.9-1.68L18.32 7.1A8 8 0 0 1 12 20Z"
+          />
+        </svg>
+        <p class="unsupported-title" data-i18n="unsupportedTitle"></p>
+        <p class="unsupported-text" id="unsupportedText"></p>
+        <button class="button" id="unsupportedAction" type="button" hidden></button>
+      </section>
+
+      <section class="card control" id="control" hidden>
+        <div class="readout">
+          <button class="step" id="decrease" type="button" data-i18n-title="decrease" data-i18n-aria-label="decrease">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11h14v2H5z" /></svg>
+          </button>
+          <label class="value">
+            <input
+              id="value"
+              type="number"
+              inputmode="numeric"
+              min="0"
+              max="600"
+              step="1"
+              data-i18n-aria-label="volume"
+            />
+            <span class="unit">%</span>
+          </label>
+          <button class="step" id="increase" type="button" data-i18n-title="increase" data-i18n-aria-label="increase">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z" /></svg>
+          </button>
+        </div>
+
+        <div class="slider" id="sliderBox">
+          <input id="slider" type="range" min="0" max="600" step="1" data-i18n-aria-label="volume" />
+          <div class="scale" id="scale" aria-hidden="true"></div>
+        </div>
+
+        <div class="presets" id="presets"></div>
+
+        <div class="options">
+          <label class="toggle">
+            <span class="toggle-text">
+              <span class="toggle-title" data-i18n="rememberSite"></span>
+              <span class="toggle-hint" id="rememberHint"></span>
+            </span>
+            <input class="switch" id="remember" type="checkbox" role="switch" />
+          </label>
+          <label class="toggle">
+            <span class="toggle-text">
+              <span class="toggle-title" data-i18n="enhancedMode"></span>
+              <span class="toggle-hint" data-i18n="enhancedModeHint"></span>
+            </span>
+            <input class="switch" id="enhanced" type="checkbox" role="switch" />
+          </label>
+        </div>
+
+        <div class="notice" id="notice" role="status" hidden>
+          <p class="notice-text" id="noticeText"></p>
+          <button class="notice-action" id="noticeAction" type="button" hidden></button>
+        </div>
+        <p class="status" id="status"></p>
+      </section>
+
+      <section class="playing">
+        <h2 class="section-title" data-i18n="playingTabs"></h2>
+        <ul class="tab-list" id="tabList"></ul>
+        <p class="empty" id="tabListEmpty" data-i18n="noPlayingTabs" hidden></p>
+      </section>
+    </main>
+  </body>
+</html>

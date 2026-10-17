@@ -1,0 +1,9 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>frame</title>
+<iframe id="frame" allow="autoplay"></iframe>
+<script>
+  // ?frame=<host> loads media.html from another site in the iframe.
+  const host = new URLSearchParams(location.search).get('frame');
+  document.getElementById('frame').src = `http://${host}:${location.port}/media.html`;
+</script>

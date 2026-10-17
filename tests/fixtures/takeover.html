@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>takeover</title>
+<audio id="media" src="/tone.wav" loop></audio>
+<script>
+  const media = document.getElementById('media');
+  media.play();
+  // The page wires the element into its own Web Audio graph, possibly after
+  // the extension already did.
+  window.takeOver = (useConstructor) => {
+    const context = new AudioContext();
+    const source = useConstructor
+      ? new MediaElementAudioSourceNode(context, { mediaElement: media })
+      : context.createMediaElementSource(media);
+    source.connect(context.destination);
+    return source.mediaElement === media;
+  };
+</script>

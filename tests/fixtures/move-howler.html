@@ -1,0 +1,16 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>move sounds: Howler.js</title>
+<button id="move">move</button>
+<script src="/howler.js"></script>
+<script>
+  // Howler.js, the most common web audio library: Web Audio by default,
+  // pooled HTML5 Audio elements with ?html5.
+  const params = new URLSearchParams(location.search);
+  const sound = new Howl({ src: [params.get('src') || '/click.wav'], html5: params.has('html5') });
+  window.ready = new Promise((resolve, reject) => {
+    sound.once('load', () => resolve(true));
+    sound.once('loaderror', (id, error) => reject(new Error(String(error))));
+  });
+  document.getElementById('move').addEventListener('click', () => sound.play());
+</script>

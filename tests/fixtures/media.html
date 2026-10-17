@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>media</title>
+<button id="play">play</button>
+<button id="unmute">unmute</button>
+<script>
+  // ?src=  media URL (default: same-origin tone)
+  // ?crossorigin=anonymous  sets the crossorigin attribute
+  // ?manual  do not start playing by itself
+  // ?video  use a <video> element (only video may autoplay muted)
+  // ?muted  start muted
+  const params = new URLSearchParams(location.search);
+  const media = document.createElement(params.has('video') ? 'video' : 'audio');
+  media.id = 'media';
+  media.loop = true;
+  document.body.append(media);
+  if (params.has('crossorigin')) media.crossOrigin = params.get('crossorigin');
+  if (params.has('muted')) media.muted = true;
+  media.src = params.get('src') || '/tone.wav';
+  document.getElementById('play').onclick = () => media.play();
+  document.getElementById('unmute').onclick = () => {
+    media.muted = false;
+  };
+  if (!params.has('manual')) media.play().catch(() => {});
+</script>

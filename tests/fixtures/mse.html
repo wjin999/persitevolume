@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>mse</title>
+<script>
+  // Plays the tone through Media Source Extensions, like YouTube or Bilibili.
+  // The clip is recorded in the page with MediaRecorder (WebM/Opus).
+  async function recordTone(seconds) {
+    const context = new AudioContext();
+    const oscillator = new OscillatorNode(context, { frequency: 440 });
+    const level = new GainNode(context, { gain: 0.2 });
+    const output = context.createMediaStreamDestination();
+    oscillator.connect(level).connect(output);
+    oscillator.start();
+    const recorder = new MediaRecorder(output.stream, { mimeType: 'audio/webm;codecs=opus' });
+    const chunks = [];
+    recorder.ondataavailable = (event) => chunks.push(event.data);
+    const stopped = new Promise((resolve) => (recorder.onstop = resolve));
+    recorder.start();
+    await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+    recorder.stop();
+    await stopped;
+    await context.close();
+    return new Blob(chunks).arrayBuffer();
+  }
+
+  window.ready = (async () => {
+    const data = await recordTone(2);
+    const media = document.createElement('video');
+    media.id = 'media';
+    media.loop = true;
+    document.body.append(media);
+    const source = new MediaSource();
+    media.src = URL.createObjectURL(source);
+    await new Promise((resolve) => source.addEventListener('sourceopen', resolve, { once: true }));
+    const buffer = source.addSourceBuffer('audio/webm; codecs="opus"');
+    buffer.appendBuffer(data);
+    await new Promise((resolve) => buffer.addEventListener('updateend', resolve, { once: true }));
+    source.endOfStream();
+    await media.play();
+    return media.src.startsWith('blob:');
+  })();
+</script>

@@ -1,0 +1,11 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>webaudio</title>
+<script>
+  // A sine with the same level as tone.wav, made by the page's own Web Audio graph.
+  const context = new AudioContext();
+  const oscillator = new OscillatorNode(context, { frequency: 440 });
+  const level = new GainNode(context, { gain: 0.2 });
+  oscillator.connect(level).connect(context.destination);
+  oscillator.start();
+</script>
