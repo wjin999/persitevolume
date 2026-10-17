@@ -114,7 +114,7 @@ function updateBadge(tabId, site, volume, capturing) {
     chrome.action.setBadgeBackgroundColor({ tabId, color: badgeColor(volume, capturing) }).catch(noop);
     chrome.action.setBadgeTextColor({ tabId, color: '#ffffff' }).catch(noop);
   }
-  const name = chrome.i18n.getMessage('extName');
+  const name = chrome.i18n.getMessage('extShortName');
   const where = site === FILE_SITE ? chrome.i18n.getMessage('localFiles') : site;
   chrome.action.setTitle({ tabId, title: site ? `${name}: ${volume}% (${where})` : name }).catch(noop);
 }

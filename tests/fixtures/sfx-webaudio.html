@@ -1,12 +1,12 @@
 <!doctype html>
 <meta charset="utf-8" />
-<title>move sounds: Web Audio</title>
-<button id="move">move</button>
+<title>sound effects: Web Audio</title>
+<button id="sound">play</button>
 <script>
-  // Plays move sounds the way lichess.org does (ui/site/src/sound.ts): one
-  // AudioContext created when the page is idle and resumed on the first input,
-  // a GainNode per sound connected to the destination, and a new
-  // AudioBufferSourceNode for every play.
+  // A common way to play sound effects with Web Audio: one AudioContext
+  // created when the page is idle and resumed on the first input, a GainNode
+  // per sound connected to the destination, and a new AudioBufferSourceNode
+  // for every play.
   const src = new URLSearchParams(location.search).get('src') || '/click.wav';
   const contextReady = new Promise((resolve) =>
     requestIdleCallback(() => resolve(new AudioContext({ latencyHint: 'interactive' }))),
@@ -34,11 +34,11 @@
     }
   }
 
-  const move = (async () => {
+  const effect = (async () => {
     const context = await contextReady;
     const data = await (await fetch(src)).arrayBuffer();
     return new Sound(context, await context.decodeAudioData(data));
   })();
-  window.ready = move.then(() => true);
-  document.getElementById('move').addEventListener('click', async () => (await move).play());
+  window.ready = effect.then(() => true);
+  document.getElementById('sound').addEventListener('click', async () => (await effect).play());
 </script>

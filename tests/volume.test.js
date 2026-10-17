@@ -217,7 +217,7 @@ describe('audio sources', () => {
     await page.close();
   });
 
-  test('Media Source Extensions playback (YouTube, Bilibili, …) is turned down and boosted', async () => {
+  test('Media Source Extensions playback, as on most video sites, is turned down and boosted', async () => {
     const page = await open(browser, server.url('mse', 'mse.html'));
     assert.equal(await page.evaluate(() => window.ready), true);
     const tabId = await tabIdOf(browser, page);

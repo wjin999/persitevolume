@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>sound effects: new Audio()</title>
+<button id="sound">play</button>
+<script>
+  // A new Audio() for every sound, often from a CDN on another origin.
+  const src = new URLSearchParams(location.search).get('src') || '/click.wav';
+  window.ready = Promise.resolve(true);
+  document.getElementById('sound').addEventListener('click', () => {
+    new Audio(src).play();
+  });
+</script>

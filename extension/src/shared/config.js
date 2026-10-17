@@ -80,7 +80,7 @@ export function siteKeyFromUrl(url) {
 // host[:port], or [IPv6][:port]
 const SITE_KEY_PATTERN = /^(?:[a-z\d_-]+(?:\.[a-z\d_-]+)*|\[[\da-f:.]+\])(?::\d{1,5})?$/;
 
-// Accepts what people type in the options page: "youtube.com", a full URL, …
+// Accepts what people type in the options page: "example.com", a full URL, …
 export function siteKeyFromInput(text) {
   const value = String(text ?? '').trim();
   if (!value) return null;

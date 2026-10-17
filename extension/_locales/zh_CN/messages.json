@@ -1,9 +1,9 @@
 {
   "extName": {
-    "message": "网页音量记忆 - PerSite Volume"
+    "message": "PerSite Volume - 能记住每个网站音量的音量控制插件"
   },
   "extShortName": {
-    "message": "网页音量记忆"
+    "message": "PerSite Volume"
   },
   "extDescription": {
     "message": "调低任意网页的音量或放大至 600%，并为每个网站自动记住，下次打开无需重新设置。"
@@ -64,7 +64,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -78,7 +78,7 @@
     "message": "增强模式"
   },
   "enhancedModeHint": {
-    "message": "像 Volume Master 一样捕获整个标签页的声音。开启后视频全屏只能铺满窗口。"
+    "message": "捕获此标签页的全部声音，任何声音都能放大。开启后视频全屏只能铺满窗口。"
   },
   "enhancedFailed": {
     "message": "无法开启增强模式：$ERROR$",
@@ -129,7 +129,7 @@
     "message": "目前没有正在播放声音的标签页。"
   },
   "optionsTitle": {
-    "message": "网页音量记忆 - 设置"
+    "message": "PerSite Volume - 设置"
   },
   "optionsTagline": {
     "message": "按网站记住音量，最高可放大至 600%"
@@ -196,13 +196,13 @@
     "message": "每个网站都有独立的音量，在这里修改后会立即应用到已打开的标签页。"
   },
   "addSitePlaceholder": {
-    "message": "网站，例如 youtube.com"
+    "message": "网站，例如 example.com"
   },
   "addSite": {
     "message": "添加"
   },
   "invalidSite": {
-    "message": "请输入网站（如 youtube.com）或完整网址。"
+    "message": "请输入网站（如 example.com）或完整网址。"
   },
   "invalidVolume": {
     "message": "请输入 0 到 600 之间的音量。"
@@ -227,7 +227,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -236,7 +236,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -295,7 +295,7 @@
     "message": "使用说明"
   },
   "aboutRemember": {
-    "message": "音量按网站（去掉“www.”的主机名）保存，因此 www.youtube.com 和 youtube.com 共用一个音量。来自其他网站的内嵌框架跟随标签页所在网站的设置。"
+    "message": "音量按网站（去掉“www.”的主机名）保存，因此 www.example.com 和 example.com 共用一个音量。来自其他网站的内嵌框架跟随标签页所在网站的设置。"
   },
   "aboutHow": {
     "message": "低于 100% 时，按比例调低每个媒体元素的音量，网站自带的音量控制仍然可用；高于 100% 时，通过 Web Audio API 放大声音。"
@@ -304,7 +304,7 @@
     "message": "网站从其他网站加载、且未获 CORS 授权的媒体只能调低、不能放大；Chrome 也可能要求先在网页上点击一下才能开始放大。遇到这些情况时，弹出窗口会给出提示。"
   },
   "aboutEnhanced": {
-    "message": "增强模式像 Volume Master 一样捕获整个标签页，因此任何声音都能放大。Chrome 只允许从弹出窗口开启，标签页关闭时结束，开启期间视频全屏只能铺满浏览器窗口。"
+    "message": "增强模式会捕获整个标签页，因此任何声音都能放大。Chrome 只允许从弹出窗口开启，标签页关闭时结束，开启期间视频全屏只能铺满浏览器窗口。"
   },
   "aboutPrivacy": {
     "message": "所有数据都保存在你的浏览器中。扩展程序没有服务器，也不收集任何数据。"

@@ -104,10 +104,10 @@ describe('popup', () => {
 
   test('does not blame short sound effects on an unreachable source', async () => {
     const src = encodeURIComponent(server.url('sounds-cdn', 'click.wav'));
-    const page = await open(browser, server.url('popup-moves', 'move-element.html', `src=${src}`));
+    const page = await open(browser, server.url('popup-sfx', 'sfx-element.html', `src=${src}`));
     const tabId = await tabIdOf(browser, page);
     await setVolume(browser, tabId, 25);
-    await page.click('#move');
+    await page.click('#sound');
     // Chrome keeps the tab marked as playing for a moment after the sound ends.
     await waitFor(() => browser.controller.evaluate(async (id) => (await chrome.tabs.get(id)).audible, tabId), {
       message: 'tab marked as playing',

@@ -17,7 +17,7 @@ const FIXTURES_DIR = fileURLToPath(new URL('./fixtures/', import.meta.url));
 // Every test page plays (or synthesizes) a 440 Hz sine of this amplitude.
 export const TONE_AMPLITUDE = 0.2;
 export const TONE_RMS = TONE_AMPLITUDE / Math.SQRT2;
-// Peak of /click.wav, a short blip standing in for a chess move sound.
+// Peak of /click.wav, a short blip standing in for a sound effect.
 export const CLICK_AMPLITUDE = 0.4;
 
 const RATE = 48000;
@@ -226,8 +226,7 @@ export async function engineStatus(browser, tabId) {
   return total;
 }
 
-// RMS level of everything the tab outputs, captured the way Volume Master
-// captures tabs.
+// RMS level of everything the tab outputs, captured with chrome.tabCapture.
 export function measure(browser, tabId, { settle = 350, duration = 500 } = {}) {
   return browser.controller.evaluate(
     async ({ target, settleMs, durationMs }) => {
@@ -272,8 +271,7 @@ export async function assertLevel(browser, tabId, percent, message = '') {
   return level;
 }
 
-// Peak level the tab outputs while `trigger` runs, for short sounds such as a
-// chess move.
+// Peak level the tab outputs while `trigger` runs, for short sound effects.
 export async function measureShot(browser, tabId, trigger, { tail = 500 } = {}) {
   await browser.controller.evaluate(async (target) => {
     const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: target });

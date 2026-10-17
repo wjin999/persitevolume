@@ -78,7 +78,8 @@
   const { stringify, parse } = JSON;
   const noop = () => {};
 
-  const DISCOVERY_EVENTS = ['play', 'playing'];
+  // loadstart: catch media before it can play, so it already starts quieter.
+  const DISCOVERY_EVENTS = ['loadstart', 'play', 'playing'];
   const ELEMENT_EVENTS = ['playing', 'loadedmetadata', 'emptied', 'volumechange', 'pause', 'ended'];
   const GESTURE_EVENTS = ['pointerdown', 'pointerup', 'mousedown', 'keydown', 'touchend', 'click'];
   const GESTURE_OPTIONS = { capture: true, passive: true };
@@ -112,9 +113,9 @@
   }
 
   // A short linear ramp avoids clicks. Chrome skips nodes that have nothing to
-  // play (a board between two moves) and only advances setTargetAtTime() while
-  // processing, so the next move sound would start out at the old volume; a
-  // linear ramp is worked out from the clock instead.
+  // play (a page between two short sound effects) and only advances
+  // setTargetAtTime() while processing, so the next sound would start out at
+  // the old volume; a linear ramp is worked out from the clock instead.
   function rampTo(node, value) {
     const param = node.gain;
     try {
@@ -280,7 +281,8 @@
 
   // ---- per-element decision ----
 
-  function update(element) {
+  // `starting`: the page is calling play() right now.
+  function update(element, starting = false) {
     if (foreign.has(element)) return;
     if (pageOwned.has(element) || routed.has(element)) {
       releaseScale(element);
@@ -293,7 +295,7 @@
     }
     releaseScale(element);
     // Routing is permanent, so only do it for media that is actually heard.
-    if (gain === 1 || element.paused || element.muted) {
+    if (gain === 1 || (element.paused && !starting) || element.muted) {
       blocked.delete(element);
       return;
     }
@@ -383,17 +385,18 @@
 
   // ---- hooks ----
 
+  // Adjust before playback starts: media that is already buffered can render
+  // its first samples before a volume change made after play() arrives.
   mediaProto.play = function play() {
-    const result = apply(nativePlay, this, arguments);
     if (this instanceof MediaElement) {
       try {
         track(this);
-        update(this);
+        update(this, true);
       } catch {
         // Never break playback.
       }
     }
-    return result;
+    return apply(nativePlay, this, arguments);
   };
 
   if (typeof nativeAttachShadow === 'function') {

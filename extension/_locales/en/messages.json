@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "PerSite Volume"
+    "message": "PerSite Volume - Volume Control That Remembers Each Site"
   },
   "extShortName": {
     "message": "PerSite Volume"
@@ -64,7 +64,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -78,7 +78,7 @@
     "message": "Enhanced mode"
   },
   "enhancedModeHint": {
-    "message": "Captures all of this tab's audio, like Volume Master. Fullscreen video stays inside the window."
+    "message": "Captures all of this tab's audio, so any sound can be boosted. Fullscreen video stays inside the window."
   },
   "enhancedFailed": {
     "message": "Enhanced mode could not start: $ERROR$",
@@ -196,13 +196,13 @@
     "message": "Each site keeps its own volume. Changes here apply to open tabs right away."
   },
   "addSitePlaceholder": {
-    "message": "Site, e.g. youtube.com"
+    "message": "Site, e.g. example.com"
   },
   "addSite": {
     "message": "Add"
   },
   "invalidSite": {
-    "message": "Enter a site such as youtube.com, or a full web address."
+    "message": "Enter a site such as example.com, or a full web address."
   },
   "invalidVolume": {
     "message": "Enter a volume between 0 and 600."
@@ -227,7 +227,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -236,7 +236,7 @@
     "placeholders": {
       "site": {
         "content": "$1",
-        "example": "youtube.com"
+        "example": "example.com"
       }
     }
   },
@@ -295,7 +295,7 @@
     "message": "Good to know"
   },
   "aboutRemember": {
-    "message": "Volumes are saved per site (the host name without “www.”), so www.youtube.com and youtube.com share one. Embedded frames from other sites follow the site of the tab."
+    "message": "Volumes are saved per site (the host name without “www.”), so www.example.com and example.com share one. Embedded frames from other sites follow the site of the tab."
   },
   "aboutHow": {
     "message": "Below 100%, each media element's volume is scaled while the site's own volume control keeps working. Above 100%, audio is routed through the Web Audio API to amplify it."
@@ -304,7 +304,7 @@
     "message": "Media that a site loads from another site without CORS permission can be turned down but not boosted, and Chrome may want one click on a page before boosting starts. The popup tells you when either happens."
   },
   "aboutEnhanced": {
-    "message": "Enhanced mode captures the whole tab, as Volume Master does, so any sound can be boosted. Chrome only allows it from the popup, it ends when the tab closes, and fullscreen video only fills the browser window while it is on."
+    "message": "Enhanced mode captures the whole tab, so any sound can be boosted. Chrome only allows it from the popup, it ends when the tab closes, and fullscreen video only fills the browser window while it is on."
   },
   "aboutPrivacy": {
     "message": "Everything stays in your browser. The extension has no servers and collects no data."
